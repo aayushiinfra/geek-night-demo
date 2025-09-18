@@ -10,7 +10,7 @@ grade: stable
 confinement: strict
 
 parts:
-  ros:
+  ros-dep:
     plugin: nil
     stage-packages:
       - ros-noetic-ros-base
