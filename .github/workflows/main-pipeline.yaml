@@ -8,7 +8,7 @@ on:
 jobs:
 
   build_snap:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo Code
         uses: actions/checkout@v3
