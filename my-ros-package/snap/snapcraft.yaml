@@ -1,0 +1,56 @@
+name: my-ros-package
+base: core20
+version: '0.1.0'
+summary: A sample ROS package with C++ publisher and subscriber nodes
+description: |
+  This snap includes a ROS package with sample C++ publisher and subscriber nodes,
+  built using catkin and targeting ROS Noetic.
+
+grade: stable
+confinement: strict
+
+parts:
+  ros:
+    plugin: nil
+    stage-packages:
+      - ros-noetic-ros-base
+      - ros-noetic-std-msgs
+      - ros-noetic-roscpp
+      - build-essential
+      - cmake
+      - python3-catkin-tools
+
+  my_ros_package:
+    plugin: nil
+    source: .
+    build-packages:
+      - g++
+      - cmake
+    stage-packages:
+      - ros-noetic-ros-base
+      - ros-noetic-std-msgs
+      - ros-noetic-roscpp
+    override-build: |
+      source /opt/ros/noetic/setup.bash
+      catkin_make
+      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+      cp devel/lib/my_ros_package/publisher_node $SNAPCRAFT_PART_INSTALL/bin/
+      cp devel/lib/my_ros_package/subscriber_node $SNAPCRAFT_PART_INSTALL/bin/
+
+apps:
+  publisher:
+    command: bin/publisher_node
+    plugs:
+      - network
+      - network-bind
+
+  subscriber:
+    command: bin/subscriber_node
+    plugs:
+      - network
+
+plugs:
+  network:
+    interface: network
+  network-bind:
+    interface: network-bind

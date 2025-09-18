@@ -1,0 +1,40 @@
+on:
+  workflow-dispatch:
+  pull_request:
+    branches: ["main"]
+  push_pipeline:
+    branches: ["main"]
+
+jobs:
+
+  build_snap:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Repo Code
+        uses: actions/checkout@v3
+        # working-directory: catkin_ws/src/
+
+      - name: Build Snap
+        run: |
+          cd snap
+          snapcraft
+          ls
+          # source /opt/ros/noetic/setup.bash
+          # catkin_make
+        shell: bash
+        # working-directory: catkin_ws/
+
+  deploy:
+    runs-on: self-hosted
+    steps: 
+      - name: Install the snap
+        run: |
+          set -e
+          echo ${{ secrets.APP_PW }} sudo -S snap install --devmode app*.snap
+          isSnapPresent=$(snap list | awk '{print $1}' | grep "app")
+          if [ "$isSnapPresent" = "app" ];
+          then
+            echo "Snap is installed"
+          fi
+        shell: bash
+  # verify:
