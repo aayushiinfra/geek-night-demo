@@ -28,7 +28,7 @@ parts:
       - g++
       - cmake
       - build-essential
-      - python3-catkin-tools
+      - catkin-tools
     stage-packages:
       - ros-noetic-ros-base
       - ros-noetic-std-msgs
