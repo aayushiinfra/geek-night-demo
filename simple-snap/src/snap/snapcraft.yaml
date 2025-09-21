@@ -16,6 +16,7 @@ parts:
   hello-snap:
     plugin: cmake
     source: ./src
+    type: local
     build-packages:
       - g++
       - cmake
