@@ -21,7 +21,7 @@ parts:
       - g++
       - cmake
     override-build:
-      mkdir build && cd build
-      cmake ..
-      make
-      cp hello-snap $SNAPCRAFT_PART_INSTALL/bin/
+      mkdir build && cd build &&
+      cmake .. &&
+      make &&
+      cp hello-snap/ $SNAPCRAFT_PART_INSTALL/bin/
