@@ -13,7 +13,7 @@ apps:
     command: hello-world
 
 parts:
-  hello-snap:
+  hello-world:
     plugin: cmake
     source: ..
     source-type: local
