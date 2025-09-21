@@ -33,7 +33,7 @@ parts:
       - ros-noetic-ros-base
       - ros-noetic-std-msgs
       - ros-noetic-roscpp
-    override-build: |
+    override-pull: |
       # apt-get update
       apt-get install -y software-properties-common curl
       sh -c 'echo "deb http://packages.ros.org/ros/ubuntu focal main" > /etc/apt/sources.list.d/ros-latest.list'

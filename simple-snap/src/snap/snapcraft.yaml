@@ -15,7 +15,7 @@ apps:
 parts:
   hello-snap:
     plugin: cmake
-    source: .
+    source: ..
     build-packages:
       - g++
       - cmake
