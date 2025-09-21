@@ -28,6 +28,7 @@ jobs:
         run: |
           export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
           cd simple-snap/src/snap
+          rm -rf stage/ part/ prime/
           snapcraft
           ls
           # source /opt/ros/noetic/setup.bash
