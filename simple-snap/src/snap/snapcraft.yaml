@@ -1,0 +1,21 @@
+name: hello-snap
+base: core20
+version: '0.1'
+summary: A simple Hello World snap
+description: |
+  This is a minimal C++ Hello World snap using CMake.
+
+grade: devel
+confinement: strict
+
+apps:
+  hello-snap:
+    command: hello-snap
+
+parts:
+  hello-snap:
+    plugin: cmake
+    source: .
+    build-packages:
+      - g++
+      - cmake
