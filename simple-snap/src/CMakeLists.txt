@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
-project(hello-snap)
+project(hello-world)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(hello-snap main.cpp)
-install(TARGETS hello-snap DESTINATION bin)
+add_executable(hello-world main.cpp)
+install(TARGETS hello-world DESTINATION bin)

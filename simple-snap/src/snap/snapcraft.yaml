@@ -10,7 +10,7 @@ confinement: strict
 
 apps:
   hello-snap:
-    command: hello-snap
+    command: hello-world
 
 parts:
   hello-snap:
