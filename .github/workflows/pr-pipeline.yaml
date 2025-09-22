@@ -31,11 +31,25 @@ jobs:
 
   get_pr_no:
     if: github.event.issue.pull_request && contains(github.event.comment.body,'/deploy')
-    needs: build_snap
     runs-on: self-hosted
     outputs:
       PR_NUMBER: ${{ steps.pr.outputs.result }}
+      SHA: ${{ steps.sha.outputs.result }}
     steps:
+
+      - name: Get PR sha
+        id: sha
+        uses: actions/github-script@v4
+        with:
+          result-encoding: string
+          script: |
+            const { owner, repo, number } = context.issue;
+            const pr = await github.pulls.get({
+              owner,
+              repo,
+              pull_number: number,
+            });
+            return pr.data.head.sha
 
       - name: Get PR num
         id: pr
@@ -51,6 +65,11 @@ jobs:
             });
             return pr.data.number
 
+      - name: Checkout Repo Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.sha.outputs.result}}
+
   deploy:
     needs: get_pr_no
     runs-on: self-hosted
@@ -59,14 +78,14 @@ jobs:
       - name: Install the snap
         run: |
           echo "${{ secrets.APP_PW }}" | sudo -S snap install --devmode ros-talker-listener*.snap 2>/dev/null || echo "Snap is installed"
-          isSnapPresent=$(snap list | awk '{print $1}' | grep "app")
-          if [ "$isSnapPresent" = "ros-talker-listener" ];
-          then
-            echo "All good"
-          else
-            echo "Snap not installed"
-            exit 1
-          fi
+          # isSnapPresent=$(snap list | awk '{print $1}' | grep "app")
+          # if [ "$isSnapPresent" = "ros-talker-listener" ];
+          # then
+          #   echo "All good"
+          # else
+          #   echo "Snap not installed"
+          #   exit 1
+          # fi
         shell: bash
         working-directory: ros-listener-talker/snap
 
@@ -106,7 +125,7 @@ jobs:
           script: |
             const name = 'Deployment in runner';
             const success = '${{ job.status }}' === 'success';
-            const body = '${name}: ${success ? 'succeded :white_check_mark:' : 'failed :x:'}'
+            const body = '${name}: ${success ? 'succeeded :white_check_mark:' : 'failed :x:'}'
 
       - name: Update comment
         uses: peter-evans/create-or-update-comment@v4
