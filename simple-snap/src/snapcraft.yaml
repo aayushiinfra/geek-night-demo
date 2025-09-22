@@ -6,7 +6,7 @@ description: |
   This is a minimal C++ Hello World snap using CMake.
 
 grade: devel
-confinement: strict
+confinement: devmode
 
 apps:
   hello-world:
