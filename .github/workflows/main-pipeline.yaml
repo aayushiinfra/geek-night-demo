@@ -34,6 +34,7 @@ jobs:
         working-directory: ros-listener-talker/snap
 
   deploy:
+    needs: build_snap
     runs-on: self-hosted
     steps: 
       - name: Install the snap
@@ -70,5 +71,7 @@ jobs:
       - name: Clear the output file
         run: |
           rm screenlog.0
+          rm *.snap
+          echo "${{ secrets.APP_PW }}" | sudo -S snap remove ros-talker-listener*.snap
         shell: bash
         working-directory: ros-listener-talker/snap
