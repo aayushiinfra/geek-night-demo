@@ -18,9 +18,9 @@ parts:
     source: .
     source-type: local
     organize:
-      ./install/*: bin/
+      ./install/bin/*: install/bin/
     cmake-parameters:
-      - -DCMAKE_INSTALL_PREFIX=./install
+      - -DCMAKE_INSTALL_PREFIX=install
     build-packages:
       - g++
       - cmake
