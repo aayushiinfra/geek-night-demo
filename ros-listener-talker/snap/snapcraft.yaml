@@ -5,6 +5,7 @@ description: |
   This example launches a ROS talker and listener.
 
 confinement: devmode
+grade: devel
 base: core20
 
 parts:

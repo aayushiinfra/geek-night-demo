@@ -27,25 +27,48 @@ jobs:
       - name: Build Snap
         run: |
           export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
-          ls
-          cd ros-listener-talker/snap
           # snapcraft clean
           snapcraft
           ls
         shell: bash
-        # working-directory: catkin_ws/
+        working-directory: ros-listener-talker/snap
 
-  # deploy:
-  #   runs-on: self-hosted
-  #   steps: 
-  #     - name: Install the snap
-  #       run: |
-  #         set -e
-  #         echo ${{ secrets.APP_PW }} sudo -S snap install --devmode app*.snap
-  #         isSnapPresent=$(snap list | awk '{print $1}' | grep "app")
-  #         if [ "$isSnapPresent" = "app" ];
-  #         then
-  #           echo "Snap is installed"
-  #         fi
-  #       shell: bash
-  # verify:
+  deploy:
+    runs-on: self-hosted
+    steps: 
+      - name: Install the snap
+        run: |
+          set -e
+          echo ${{ secrets.APP_PW }} sudo -S snap install --devmode ros-talker-listener*.snap
+          isSnapPresent=$(snap list | awk '{print $1}' | grep "app")
+          if [ "$isSnapPresent" = "ros-talker-listener" ];
+          then
+            echo "Snap is installed"
+          fi
+        shell: bash
+        working-directory: ros-listener-talker/snap
+
+      - name: Run the snap app
+        run: |
+          screen -h 1000 -dmSL roslistener ros-talker-listener
+          sleep 5
+        shell: bash
+        working-directory: ros-listener-talker/snap
+
+      - name: Kill the app run
+        run: |
+          killall screen
+        shell: bash
+        working-directory: ros-listener-talker/snap
+
+      - name: Verification
+        run: |
+          cat screenlog.0
+        shell: bash
+        working-directory: ros-listener-talker/snap
+
+      - name: Clear the output file
+        run: |
+          rm screenlog.0
+        shell: bash
+        working-directory: ros-listener-talker/snap
