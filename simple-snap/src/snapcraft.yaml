@@ -15,7 +15,7 @@ apps:
 parts:
   hello-world:
     plugin: cmake
-    source: ..
+    source: .
     source-type: local
     build-packages:
       - g++
