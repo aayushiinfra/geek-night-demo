@@ -35,7 +35,22 @@ jobs:
     runs-on: self-hosted
     outputs:
       PR_NUMBER: ${{ steps.pr.outputs.result }}
+      SHA: ${{ steps.sha.outputs.result }}
     steps:
+
+      - name: Get PR sha
+        id: sha
+        uses: actions/github-script@v4
+        with:
+          result-encoding: string
+          script: |
+            const { owner, repo, number } = context.issue;
+            const pr = await github.pulls.get({
+              owner,
+              repo,
+              pull_number: number,
+            });
+            return pr.data.head.sha
 
       - name: Get PR num
         id: pr
