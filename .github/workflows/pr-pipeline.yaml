@@ -70,6 +70,14 @@ jobs:
         with:
           ref: ${{ steps.sha.outputs.result}}
 
+      - name: Build Snap
+        run: |
+          export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
+          snapcraft
+          ls
+        shell: bash
+        working-directory: ros-listener-talker/snap
+
   deploy:
     needs: get_pr_no
     runs-on: self-hosted
@@ -111,7 +119,6 @@ jobs:
       - name: Clear the output file
         run: |
           rm screenlog.0
-          rm *.snap
           echo "${{ secrets.APP_PW }}" | sudo -S snap remove ros-talker-listener*.snap
         shell: bash
         working-directory: ros-listener-talker/snap
@@ -125,7 +132,7 @@ jobs:
           script: |
             const name = 'Deployment in runner';
             const success = '${{ job.status }}' === 'success';
-            const body = '${name}: ${success ? 'succeeded :white_check_mark:' : 'failed :x:'}'
+            const body = '${name}: ${success ? 'succeeded' :white_check_mark: : 'failed' :x:}'
 
       - name: Update comment
         uses: peter-evans/create-or-update-comment@v4
