@@ -40,7 +40,7 @@ jobs:
       - name: Install the snap
         run: |
           set -e
-          echo "${{ secrets.APP_PW }}" | sudo -S snap install --devmode ros-talker-listener*.snap
+          echo "${{ secrets.APP_PW }}" | sudo -S snap install --devmode ros-talker-listener*.snap > /dev/null
           isSnapPresent=$(snap list | awk '{print $1}' | grep "app")
           if [ "$isSnapPresent" = "ros-talker-listener" ];
           then
