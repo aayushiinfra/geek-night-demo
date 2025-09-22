@@ -14,14 +14,14 @@ apps:
 
 parts:
   hello-world:
-    plugin: dump
+    plugin: cmake
     source: ..
     source-type: local
     build-packages:
       - g++
       - cmake
-    override-build:
-      mkdir build && cd build &&
-      cmake .. &&
-      make &&
-      cp hello-snap/ $SNAPCRAFT_PART_INSTALL/bin/
+    # override-build:
+    #   mkdir build && cd build &&
+    #   cmake .. &&
+    #   make &&
+    #   cp hello-snap/ $SNAPCRAFT_PART_INSTALL/bin/
