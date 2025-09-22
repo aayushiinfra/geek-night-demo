@@ -27,12 +27,10 @@ jobs:
       - name: Build Snap
         run: |
           export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
+          ls
           cd simple-snap/src/
-          rm -rf stage/ part/ prime/
           snapcraft
           ls
-          # source /opt/ros/noetic/setup.bash
-          # catkin_make
         shell: bash
         # working-directory: catkin_ws/
 
