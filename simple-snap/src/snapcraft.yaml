@@ -10,7 +10,7 @@ confinement: strict
 
 apps:
   hello-world:
-    command: hello-world
+    command: install/bin/hello-world
 
 parts:
   hello-world:
