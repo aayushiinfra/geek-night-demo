@@ -29,6 +29,7 @@ jobs:
           export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
           ls
           cd simple-snap/src/
+          snapcraft clean
           snapcraft
           ls
         shell: bash
