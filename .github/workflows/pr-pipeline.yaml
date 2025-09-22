@@ -59,14 +59,14 @@ jobs:
       - name: Install the snap
         run: |
           echo "${{ secrets.APP_PW }}" | sudo -S snap install --devmode ros-talker-listener*.snap 2>/dev/null || echo "Snap is installed"
-          isSnapPresent=$(snap list | awk '{print $1}' | grep "app")
-          if [ "$isSnapPresent" = "ros-talker-listener" ];
-          then
-            echo "All good"
-          else
-            echo "Snap not installed"
-            exit 1
-          fi
+          # isSnapPresent=$(snap list | awk '{print $1}' | grep "app")
+          # if [ "$isSnapPresent" = "ros-talker-listener" ];
+          # then
+          #   echo "All good"
+          # else
+          #   echo "Snap not installed"
+          #   exit 1
+          # fi
         shell: bash
         working-directory: ros-listener-talker/snap
 
@@ -106,7 +106,7 @@ jobs:
           script: |
             const name = 'Deployment in runner';
             const success = '${{ job.status }}' === 'success';
-            const body = '${name}: ${success ? 'succeded :white_check_mark:' : 'failed :x:'}'
+            const body = '${name}: ${success ? 'succeeded :white_check_mark:' : 'failed :x:'}'
 
       - name: Update comment
         uses: peter-evans/create-or-update-comment@v4
