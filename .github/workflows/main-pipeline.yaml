@@ -27,7 +27,7 @@ jobs:
       - name: Build Snap
         run: |
           export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
-          cd simple-snap/src/snap
+          cd simple-snap/src/
           rm -rf stage/ part/ prime/
           snapcraft
           ls
