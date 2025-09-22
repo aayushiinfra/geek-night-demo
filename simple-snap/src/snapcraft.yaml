@@ -17,6 +17,8 @@ parts:
     plugin: cmake
     source: .
     source-type: local
+    organize:
+      ./install/*: bin/
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=./install
     build-packages:
