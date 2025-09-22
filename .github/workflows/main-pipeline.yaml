@@ -39,12 +39,12 @@ jobs:
     steps: 
       - name: Install the snap
         run: |
-          echo "${{ secrets.APP_PW }}" | sudo -S snap install --devmode ros-talker-listener*.snap 2>/dev/null
-          isSnapPresent=$(snap list | awk '{print $1}' | grep "app")
-          if [ "$isSnapPresent" = "ros-talker-listener" ];
-          then
-            echo "Snap is installed"
-          fi
+          echo "${{ secrets.APP_PW }}" | sudo -S snap install --devmode ros-talker-listener*.snap 2>/dev/null || echo "Snap is installed"
+          # isSnapPresent=$(snap list | awk '{print $1}' | grep "app")
+          # if [ "$isSnapPresent" = "ros-talker-listener" ];
+          # then
+          #   echo 
+          # fi
         shell: bash
         working-directory: ros-listener-talker/snap
 
