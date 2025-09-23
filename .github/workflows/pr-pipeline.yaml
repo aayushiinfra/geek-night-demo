@@ -8,29 +8,7 @@ on:
 
 jobs:
 
-  # build_snap:
-  #   if: github.event.issue.pull_request && contains(github.event.comment.body,'/deploy')
-  #   runs-on: self-hosted
-  #   steps:
-  #     - name: Checkout Repo Code
-  #       uses: actions/checkout@v3
-
-  #     # - name: Do a cleanup
-  #     #   if: github.event.issue.pull_request && contains(github.event.comment.body,'/clean')
-  #     #   run: |
-  #     #     export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
-  #     #     snapcraft clean
-  #     #   shell: bash
-
-  #     - name: Build Snap
-  #       run: |
-  #         export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
-  #         snapcraft
-  #         ls
-  #       shell: bash
-  #       working-directory: ros-listener-talker/snap
-
-  get_pr_no:
+  build_snap_for_comment:
     if: github.event.issue.pull_request && contains(github.event.comment.body,'/deploy')
     runs-on: self-hosted
     outputs:
@@ -91,14 +69,6 @@ jobs:
       - name: Install the snap
         run: |
           echo "${{ secrets.APP_PW }}" | sudo -S snap install --devmode ros-talker-listener*.snap 2>/dev/null || echo "Snap is installed"
-          # isSnapPresent=$(snap list | awk '{print $1}' | grep "app")
-          # if [ "$isSnapPresent" = "ros-talker-listener" ];
-          # then
-          #   echo "All good"
-          # else
-          #   echo "Snap not installed"
-          #   exit 1
-          # fi
         shell: bash
         working-directory: ros-listener-talker/snap
 
