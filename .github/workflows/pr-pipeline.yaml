@@ -140,7 +140,7 @@ jobs:
         if: success() || failure()
         with:
           comment-id: ${{github.event.comment.id}}
-          issue_number: ${{ needs.get-pr-no.outputs.PR_NUMBER }}
+          issue-number: ${{ needs.get-pr-no.outputs.PR_NUMBER }}
           body: |
             ${{ steps.comment.outputs.result}}
             'Check logs at ${{github.server_url}}/${{ github.repository }}/actions/runs/${{ github.run_id}}'
