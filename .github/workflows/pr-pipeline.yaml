@@ -8,26 +8,27 @@ on:
 
 jobs:
 
-  build_snap:
-    runs-on: self-hosted
-    steps:
-      - name: Checkout Repo Code
-        uses: actions/checkout@v3
+  # build_snap:
+  #   if: github.event.issue.pull_request && contains(github.event.comment.body,'/deploy')
+  #   runs-on: self-hosted
+  #   steps:
+  #     - name: Checkout Repo Code
+  #       uses: actions/checkout@v3
 
-      # - name: Do a cleanup
-      #   if: github.event.issue.pull_request && contains(github.event.comment.body,'/clean')
-      #   run: |
-      #     export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
-      #     snapcraft clean
-      #   shell: bash
+  #     # - name: Do a cleanup
+  #     #   if: github.event.issue.pull_request && contains(github.event.comment.body,'/clean')
+  #     #   run: |
+  #     #     export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
+  #     #     snapcraft clean
+  #     #   shell: bash
 
-      - name: Build Snap
-        run: |
-          export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
-          snapcraft
-          ls
-        shell: bash
-        working-directory: ros-listener-talker/snap
+  #     - name: Build Snap
+  #       run: |
+  #         export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
+  #         snapcraft
+  #         ls
+  #       shell: bash
+  #       working-directory: ros-listener-talker/snap
 
   get_pr_no:
     if: github.event.issue.pull_request && contains(github.event.comment.body,'/deploy')
