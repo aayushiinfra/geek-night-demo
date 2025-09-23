@@ -130,9 +130,10 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const name = 'Deployment in runner';
+            const name = 'Deployed on Runner';
             const success = '${{ job.status }}' === 'success';
-            const body = '${name}: ${success ? 'succeeded'✅ : 'failed'❌}'
+            const body = `${name}: ${success ? 'succeeded ✅' : 'failed ❌'}`;
+            return body
 
       - name: Update comment
         uses: peter-evans/create-or-update-comment@v4
