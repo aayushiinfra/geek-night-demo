@@ -58,7 +58,7 @@ jobs:
         working-directory: ros-listener-talker/snap
 
   deploy:
-    needs: get_pr_no
+    needs: build_snap_for_comment
     runs-on: self-hosted
     permissions:
       contents: read
@@ -115,7 +115,7 @@ jobs:
         if: success() || failure()
         with:
           comment-id: ${{github.event.comment.id}}
-          issue-number: ${{ needs.get_pr_no.outputs.PR_NUMBER }}
+          issue-number: ${{ needs.build_snap_for_comment.outputs.PR_NUMBER }}
           body: |
             ${{ steps.comment.outputs.result}}
             ${{github.server_url}}/${{ github.repository }}/actions/runs/${{ github.run_id}}
